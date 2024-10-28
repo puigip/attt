@@ -4,6 +4,8 @@
  */
 package controller;
 
+import dal.DBcontext;
+import dal.UserDal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -58,8 +60,28 @@ public class home extends HttpServlet {
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 //            throws ServletException, IOException {
 //        processRequest(request, response);
-//    }
 
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String tktmp= request.getParameter("username");
+//        String mktmp=request.getParameter("password");
+////            request.getRequestDispatcher("trangchu.jsp").forward(request, response);
+//try{
+//    DBcontext db=new DBcontext();
+//    UserDal x=new UserDal();
+//    if(x.timKiemtk(tktmp)!=0&&x.timKiemmk(tktmp).equals(mktmp)){
+//        request.getRequestDispatcher("trangchu.jsp").forward(request, response);
+//    }
+//    else {
+//        request.setAttribute("error", "Sai thông tin !");
+//        request.getRequestDispatcher("index.html").forward(request, response);
+//    }
+//    
+//}catch(Exception e){
+//    
+//}
+//    }
+//    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -69,17 +91,28 @@ public class home extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            String tk = "admin";
-            String mk="123";
-            String tktmp= request.getParameter("username");
-            String mktmp=request.getParameter("password");
-            if(tk.equals(tktmp)&&mk.equals(mktmp)){
-//                request.getRequestDispatcher("listnguoidung").forward(request, response);  
-                 response.sendRedirect("listnguoidung");
-            }
-           
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username= request.getParameter("username");
+        String password=request.getParameter("password");
+//            request.getRequestDispatcher("trangchu.jsp").forward(request, response);
+try{
+    DBcontext db=new DBcontext();
+    UserDal x=new UserDal();
+    if(x.timKiemtk(username)==0&&x.timKiemmk(username).equals(password))
+    {
+      if(x.timKiemid(username)==0){
+           request.setAttribute("username", username);
+            request.getRequestDispatcher("trangchu").forward(request, response);
+      }
+      else  request.getRequestDispatcher("listnguoidung").forward(request, response);
+    }
+    else {
+        request.getRequestDispatcher("index.html").forward(request, response);
+    }
+    
+}catch(Exception e){
+    
+}
     }
 
     /**
@@ -91,5 +124,4 @@ public class home extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

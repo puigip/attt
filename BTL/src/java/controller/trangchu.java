@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dal.UserDal;
+import dal.SPDal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +12,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
+import java.util.List;
+import model.SP;
 
 /**
  *
  * @author buigi
  */
-@WebServlet(name = "delete", urlPatterns = {"/delete"})
-public class delete extends HttpServlet {
+@WebServlet(name = "trangchu", urlPatterns = {"/trangchu"})
+public class trangchu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +39,10 @@ public class delete extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet delete</title>");
+            out.println("<title>Servlet trangchu</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet delete at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet trangchu at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,17 +60,11 @@ public class delete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String  tk = request.getParameter("TK");
-//        try{
-//            id=Integer.parseInt(username);
-//            UserDal c = new UserDal();
-//             c.delete(id);
-//        }catch(Exception e){
-//            
-//        }
-            UserDal c= new UserDal();
-            c.delete(tk);
-            response.sendRedirect("listnguoidung");
+             SPDal dao= new SPDal();
+             List<SP> p =dao.getAll();
+             request.setAttribute("sp",p);
+            request.setAttribute("username", request.getParameter("username"));
+            request.getRequestDispatcher("trangchu.jsp").forward(request, response);  
     }
 
     /**
@@ -83,7 +78,11 @@ public class delete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            SPDal dao= new SPDal();
+             List<SP> p =dao.getAll();
+             request.setAttribute("sp",p);
+            request.setAttribute("username", request.getParameter("username"));
+            request.getRequestDispatcher("trangchu.jsp").forward(request, response);  
     }
 
     /**

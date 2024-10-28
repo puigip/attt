@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+       <script>
+        const username = localStorage.getItem("username");
+    </script>
     <meta charset="UTF-8">
     <title>Quản lý người dùng</title>
     <script type="text/javascript">

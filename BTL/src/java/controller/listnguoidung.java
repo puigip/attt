@@ -4,7 +4,8 @@
  */
 package controller;
 
-import dal.NguoiDungDal;
+import dal.SPDal;
+import dal.UserDal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,7 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.NguoiDung;
+import java.util.List;
+import model.SP;
+import model.User;
 
 /**
  *
@@ -34,7 +37,7 @@ public class listnguoidung extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()){
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -60,13 +63,21 @@ public class listnguoidung extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) // get 
             throws ServletException, IOException {
-            ArrayList<NguoiDung> list = new ArrayList<>();
-        NguoiDungDal dao=new NguoiDungDal();
-        list=dao.getAll();
-        
-        request.setAttribute("data",list); 
-         
-        request.getRequestDispatcher("listnguoidung.jsp").forward(request, response);  
+        // Lấy danh sách người dùng
+    List<User> list = new ArrayList<>();
+    UserDal dao = new UserDal();
+    list = dao.getAll();
+    request.setAttribute("data", list);
+    
+    // Lấy danh sách sản phẩm
+    List<SP> list1 = new ArrayList<>();
+    SPDal dao1 = new SPDal();
+    list1 = dao1.getAll();
+    request.setAttribute("data1", list1);
+    
+    // Chuyển hướng đến JSP chỉ một lần
+    request.getRequestDispatcher("administrator.jsp").forward(request, response);
+
     }
     
     /**
@@ -77,10 +88,14 @@ public class listnguoidung extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                 List<User> list = new ArrayList<>();
+        UserDal dao=new UserDal();
+        list=dao.getAll();
+        request.setAttribute("data",list); 
+        request.getRequestDispatcher("administrator.jsp").forward(request, response);  
     }
 
     /**
@@ -92,5 +107,13 @@ public class listnguoidung extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    public static void main(String[] args) {
+        List<User> list = new ArrayList<>();
+        UserDal dao=new UserDal();
+        list=dao.getAll();
+        for(User x:list){
+            x.getTen();
+        }
+//       user.doGet(request, response);
+    }
 }

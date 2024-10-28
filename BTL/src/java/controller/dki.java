@@ -18,8 +18,8 @@ import model.User;
  *
  * @author buigi
  */
-@WebServlet(name = "delete", urlPatterns = {"/delete"})
-public class delete extends HttpServlet {
+@WebServlet(name = "dki", urlPatterns = {"/dki"})
+public class dki extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class delete extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet delete</title>");
+            out.println("<title>Servlet dki</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet delete at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet dki at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,17 +59,7 @@ public class delete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String  tk = request.getParameter("TK");
-//        try{
-//            id=Integer.parseInt(username);
-//            UserDal c = new UserDal();
-//             c.delete(id);
-//        }catch(Exception e){
-//            
-//        }
-            UserDal c= new UserDal();
-            c.delete(tk);
-            response.sendRedirect("listnguoidung");
+        processRequest(request, response);
     }
 
     /**
@@ -83,7 +73,21 @@ public class delete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            String name= request.getParameter("name");
+            String username=request.getParameter("username");
+            String password=request.getParameter("password");
+            String address = request.getParameter("address");
+            String phone=request.getParameter("phone");
+            UserDal x=new UserDal();
+            User c= new User(username,password,name,address,phone,0);
+            if(x.timKiemtk(username)!=0){
+             request.setAttribute("success", "Đăng ký thành công!");
+             x.insert(c);
+            }
+            else {
+            request.setAttribute("error", "Tài khoản đã tồn tại!");
+            }
+           request.getRequestDispatcher("dki.jsp").forward(request, response);
     }
 
     /**

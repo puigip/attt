@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dal.NguoiDungDal;
+import dal.UserDal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.NguoiDung;
+import model.User;
 
 /**
  *
@@ -62,10 +62,13 @@ public class add extends HttpServlet {
            String ten=request.getParameter("name");
            String username=request.getParameter("username");
            String password=request.getParameter("password");
-           NguoiDungDal c=new NguoiDungDal();
-           NguoiDung a =new NguoiDung(ten,username,password);
+           String diachi=request.getParameter("diachi");
+           String sdt=request.getParameter("sdt");
+           int group = Integer.parseInt(request.getParameter("group"));
+           UserDal c=new UserDal();
+           User a =new User(username,password,ten,diachi,sdt,group);
            c.insert(a);
-           response.sendRedirect("list.jsp");
+           response.sendRedirect("listnguoidung");
     }
 
     /**
@@ -79,11 +82,14 @@ public class add extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String ten=request.getParameter("name");
+       String ten=request.getParameter("name");
            String username=request.getParameter("username");
            String password=request.getParameter("password");
-           NguoiDungDal c=new NguoiDungDal();
-           NguoiDung a =new NguoiDung(ten,username,password);
+           String diachi=request.getParameter("diachi");
+           String sdt=request.getParameter("sdt");
+           int group = Integer.parseInt(request.getParameter("group"));
+           UserDal c=new UserDal();
+           User a =new User(username,password,ten,diachi,sdt,group);
            c.insert(a);
            response.sendRedirect("listnguoidung");
     }

@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dal.UserDal;
+import dal.Chitietdonhangdal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
 
 /**
  *
  * @author buigi
  */
-@WebServlet(name = "delete", urlPatterns = {"/delete"})
-public class delete extends HttpServlet {
+@WebServlet(name = "deleteds", urlPatterns = {"/deleteds"})
+public class deleteds extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class delete extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet delete</title>");
+            out.println("<title>Servlet deleteds</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet delete at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet deleteds at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,17 +58,7 @@ public class delete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String  tk = request.getParameter("TK");
-//        try{
-//            id=Integer.parseInt(username);
-//            UserDal c = new UserDal();
-//             c.delete(id);
-//        }catch(Exception e){
-//            
-//        }
-            UserDal c= new UserDal();
-            c.delete(tk);
-            response.sendRedirect("listnguoidung");
+        processRequest(request, response);
     }
 
     /**
@@ -83,7 +72,11 @@ public class delete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+             int id= Integer.parseInt(request.getParameter("id"));
+             Chitietdonhangdal a=new Chitietdonhangdal();
+             a.deletebyID(id);
+            request.setAttribute("username", request.getParameter("username"));
+              request.getRequestDispatcher("trangchu").forward(request, response);
     }
 
     /**
