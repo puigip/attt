@@ -68,7 +68,7 @@ public class add extends HttpServlet {
            UserDal c=new UserDal();
            User a =new User(username,password,ten,diachi,sdt,group);
            c.insert(a);
-           response.sendRedirect("listnguoidung");
+           response.sendRedirect("administrator");
     }
 
     /**
@@ -91,7 +91,7 @@ public class add extends HttpServlet {
            UserDal c=new UserDal();
            User a =new User(username,password,ten,diachi,sdt,group);
            c.insert(a);
-           response.sendRedirect("listnguoidung");
+           response.sendRedirect("administrator");
     }
 
     /**

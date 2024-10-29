@@ -11,7 +11,7 @@ package model;
 public class User {
      String tk,mk,ten,diachi,sdt;
       int group;
-
+      int tien;
     public User(String tk, String mk, String ten, String diachi, String sdt, int group) {
         this.tk = tk;
         this.mk = mk;
@@ -21,8 +21,22 @@ public class User {
         this.group = group;
     }
 
+    public User(String tk, String mk, String ten, String diachi, String sdt, int group, int tien) {
+        this.tk = tk;
+        this.mk = mk;
+        this.ten = ten;
+        this.diachi = diachi;
+        this.sdt = sdt;
+        this.group = group;
+        this.tien = tien;
+    }
+
     public String getTk() {
         return tk;
+    }
+
+    public int getTien() {
+        return tien;
     }
 
     public String getMk() {

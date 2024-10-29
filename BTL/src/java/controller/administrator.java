@@ -22,8 +22,8 @@ import model.User;
  *
  * @author buigi
  */
-@WebServlet(name = "listnguoidung", urlPatterns = {"/listnguoidung"})
-public class listnguoidung extends HttpServlet {
+@WebServlet(name = "/administrator", urlPatterns = {"/administrator"})
+public class administrator extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,23 +61,20 @@ public class listnguoidung extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) // get 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Lấy danh sách người dùng
+    
     List<User> list = new ArrayList<>();
     UserDal dao = new UserDal();
     list = dao.getAll();
     request.setAttribute("data", list);
     
-    // Lấy danh sách sản phẩm
     List<SP> list1 = new ArrayList<>();
     SPDal dao1 = new SPDal();
     list1 = dao1.getAll();
     request.setAttribute("data1", list1);
     
-    // Chuyển hướng đến JSP chỉ một lần
     request.getRequestDispatcher("administrator.jsp").forward(request, response);
-
     }
     
     /**
@@ -91,11 +88,17 @@ public class listnguoidung extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                 List<User> list = new ArrayList<>();
-        UserDal dao=new UserDal();
-        list=dao.getAll();
-        request.setAttribute("data",list); 
-        request.getRequestDispatcher("administrator.jsp").forward(request, response);  
+        List<User> list = new ArrayList<>();
+    UserDal dao = new UserDal();
+    list = dao.getAll();
+    request.setAttribute("data", list);
+    
+    List<SP> list1 = new ArrayList<>();
+    SPDal dao1 = new SPDal();
+    list1 = dao1.getAll();
+    request.setAttribute("data1", list1);
+    
+    request.getRequestDispatcher("administrator.jsp").forward(request, response);
     }
 
     /**

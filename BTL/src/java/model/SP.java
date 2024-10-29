@@ -13,15 +13,29 @@ public class SP {
      String ten;
      int gia;
      String mota;
-     int madanhmuc;
     String image;
-    public SP(int id, String ten, int gia, String mota, int madanhmuc,String image) {
+    public SP(String ten, int gia, String mota,String image) {
+        this.ten = ten;
+        this.gia = gia;
+        this.mota = mota;
+      
+        this.image=image;
+    }
+
+//    public SP(String ten, int gia, String mota, String image) {
+//        this.ten = ten;
+//        this.gia = gia;
+//        this.mota = mota;
+//        this.image = image;
+//    }
+
+    public SP(int id, String ten, int gia, String mota, String image) {
         this.id = id;
         this.ten = ten;
         this.gia = gia;
         this.mota = mota;
-        this.madanhmuc = madanhmuc;
-        this.image=image;
+      
+        this.image = image;
     }
 
     public int getId() {
@@ -40,9 +54,7 @@ public class SP {
         return mota;
     }
 
-    public int getMadanhmuc() {
-        return madanhmuc;
-    }
+  
     public String getImage(){
         return image;
     }

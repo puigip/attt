@@ -58,14 +58,14 @@ public class Chitietdonhangdal {
         }
     }
 
-    public long findandSum(String tK) {
+    public int findandSum(String tK) {
         String sql = "SELECT \n"
                 + "    SUM(Gia) AS TongTien\n"
                 + "FROM \n"
                 + "    ChiTietDonHang\n"
                 + "WHERE \n"
                 + "    Username = ?;";
-        long tongTien = (long) 0;
+        int tongTien = (int) 0;
         try {
             DBcontext db = new DBcontext();
             PreparedStatement st = db.connection.prepareStatement(sql);
@@ -73,7 +73,7 @@ public class Chitietdonhangdal {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                tongTien = (long) rs.getInt("TongTien");
+                tongTien = (int) rs.getInt("TongTien");
             }
 
         } catch (SQLException e) {
@@ -89,6 +89,21 @@ public class Chitietdonhangdal {
             DBcontext db = new DBcontext();
             PreparedStatement st = db.connection.prepareStatement(sql);
             st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+      
+    }
+ 
+  public void deletebyUser(String U) {
+           String sql = "DELETE  FROM [dbo].[ChiTietDonHang]\n" +
+"      WHERE Username=?";
+     
+        try {
+            DBcontext db = new DBcontext();
+            PreparedStatement st = db.connection.prepareStatement(sql);
+            st.setString(1, U);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

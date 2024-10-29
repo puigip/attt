@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 
 /**
  *
@@ -72,11 +73,15 @@ public class deleteds extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             int id= Integer.parseInt(request.getParameter("id"));
-             Chitietdonhangdal a=new Chitietdonhangdal();
-             a.deletebyID(id);
-            request.setAttribute("username", request.getParameter("username"));
-              request.getRequestDispatcher("trangchu").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        Chitietdonhangdal a = new Chitietdonhangdal();
+        a.deletebyID(id);
+
+// Lấy giá trị username từ request
+        String username = request.getParameter("username");
+
+// Chuyển hướng với tham số username
+        response.sendRedirect("muaSanPham?username=" + URLEncoder.encode(username, "UTF-8"));
     }
 
     /**

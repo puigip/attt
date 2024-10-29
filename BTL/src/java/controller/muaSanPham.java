@@ -61,11 +61,12 @@ public class muaSanPham extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              String username= request.getParameter("username"); 
-            Chitietdonhangdal a=new Chitietdonhangdal();
+                   Chitietdonhangdal a=new Chitietdonhangdal();
+         String username= request.getParameter("username"); 
             List<Chitietdonhang> u = new ArrayList<>();
               u=a.getAll(username);
              request.setAttribute("ds", u);
+             if(request.getParameter("ms")!=null) request.setAttribute("ms", request.getParameter("ms"));
              request.setAttribute("username", request.getParameter("username"));
              request.getRequestDispatcher("donhangchitiet.jsp").forward(request, response);
     }
@@ -90,9 +91,9 @@ public class muaSanPham extends HttpServlet {
             List<Chitietdonhang> u = new ArrayList<>();
               u=a.getAll(username);
              request.setAttribute("ds", u);
-             request.setAttribute("username", request.getParameter("username"));
+                   request.setAttribute("username", request.getParameter("username"));
              request.getRequestDispatcher("donhangchitiet.jsp").forward(request, response);
-    }
+    }   
 
     /**
      * Returns a short description of the servlet.

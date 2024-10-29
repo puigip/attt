@@ -69,7 +69,7 @@ public class delete extends HttpServlet {
 //        }
             UserDal c= new UserDal();
             c.delete(tk);
-            response.sendRedirect("listnguoidung");
+            response.sendRedirect("administrator");
     }
 
     /**

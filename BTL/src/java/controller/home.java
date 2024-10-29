@@ -104,7 +104,7 @@ try{
            request.setAttribute("username", username);
             request.getRequestDispatcher("trangchu").forward(request, response);
       }
-      else  request.getRequestDispatcher("listnguoidung").forward(request, response);
+      else  request.getRequestDispatcher("administrator").forward(request, response);
     }
     else {
         request.getRequestDispatcher("index.html").forward(request, response);
